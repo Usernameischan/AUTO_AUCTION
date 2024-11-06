@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{{ issuer_data.name }} 채권발행 안내</title>
+    <script language="javascript">
+        function execute(no, tr, param) {
+            if (no == 1) ic.Call(tr);
+            else if (no == 2) ic.Call3(tr, param);
+        }
+    </script>
+</head>
+<body style="margin: 0 0 0 0; background:#e1e1e1;" scroll="auto">
+    <object classid='CLSID:6E661DE6-B685-11D6-8264-00010292456E' height=0 width=0 id="ic"></object>
+    <table cellspacing="0" cellpadding="0" width="400" border="0" bgcolor="#e1e1e1" style="font-size:12px">
+        <tr>
+            <td>
+                <img src="http://imboard.einfomax.co.kr/auction/company/logo/{{ issuer_data.company_code }}_2.png" border="0">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="420" border="0" cellspacing="0" cellpadding="0" align="center" style="font-size:12px">
+                    <tr>
+                        <td valign="top" background="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_08.png">
+                            <img src="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_02.png" width="74" height="63">
+                        </td>
+                        <td rowspan="2" valign="top" bgcolor="#FFF6C1" style="line-height:200%">
+                            <img src="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_03.png" width="303" height="17" valign='middle'>
+                            <strong>{{ issuer_data.name }}</strong>은 채권발행을 위해 아래와 같이<br>
+                            <strong>인포맥스경매플랫폼</strong>을 통해 전자입찰을 실시할<br>
+                            예정입니다.
+                        </td>
+                        <td valign="top" background="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_10.png">
+                            <img src="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_04.png" width="43" height="63">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td background="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_08.png">&nbsp;</td>
+                        <td background="http://imboard.einfomax.co.kr/auction/notice/images/ba_mnotice_10.png">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td background="http://imboard.einfomax.co.kr/auction/notice/images/b_mail_13.png">
+                            <img src="http://imboard.einfomax.co.kr/auction/notice/images/notice_logo_13.png" width="26" height="35">
+                        </td>
+                        <td align="right" background="http://imboard.einfomax.co.kr/auction/notice/images/b_mail_13.png">
+                            <div style="text-align: right; margin-right: 60px;">
+                                <!-- Auction Execution Link Placeholder -->
+                            </div>
+                        </td>
+                        <td align="right" background="http://imboard.einfomax.co.kr/auction/notice/images/b_mail_13.png">
+                            <img src="http://imboard.einfomax.co.kr/auction/notice/images/b_mail_15.png" width="26" height="35">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; color:#6f0101; padding: 8px 10px 2px 15px;">
+                <table>
+                    <tr>
+                        <td style="font-size:12px; font-weight: bold; color:#6f0101;">
+                            1. 발행예정 채권내역
+                        </td>
+                        <td align="right" width="255">&nbsp;&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table align="center" width="380" cellspacing="1" cellpadding="4" bgcolor="#d4d4d4" style="font-size:12px">
+                    <tr>
+                        <td colspan="3" bgcolor="#ffffff">
+                            <table align="center" width="100%" cellspacing="1" cellpadding="4" bgcolor="#d4d4d4" style="font-size:12px">
+                                <tr>
+                                    <td bgcolor="#e9dfff" width="220">종목명</td>
+                                    <td bgcolor="#e9dfff">만기</td>
+                                    <td bgcolor="#e9dfff" width="80">발행액</td>
+                                </tr>
+                                {% for bond in bond_data %}
+                                <tr bgcolor="#ffffff" align="center">
+                                    <td>{{ bond.bond_nm }}</td>
+                                    <td>{{ bond.exp_original | exp_original }}</td>
+                                    <td>{{ "{:,.0f}".format(bond.issue_amt | int) }}억 내외</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">발행구분</td><td bgcolor="#ffffff">{{ bond_data[0].issuegb | issuegb }}</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">채권유형</td><td bgcolor="#ffffff">{{ bond_data[0].bond_type | bond_type }}</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">보증/담보</td><td bgcolor="#ffffff"><font color="#990000"><b>{{ bond_data[0].gurtgb | gurtgb }}</b></font></td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">발행일</td><td bgcolor="#ffffff">{{ bond_data[0].issue_date[:4] }}년 {{ bond_data[0].issue_date[4:6] }}월 {{ bond_data[0].issue_date[6:] }}일</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">원금상환방법</td><td bgcolor="#ffffff">{{ bond_data[0].redmmthd | redmmthd }}</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">이자유형</td><td bgcolor="#ffffff">{{ bond_data[0].inttypestring }}</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">대금납입일</td><td bgcolor="#ffffff">{{ bond_data[0].issue_date[:4] }}년 {{ bond_data[0].issue_date[4:6] }}월 {{ bond_data[0].issue_date[6:] }}일 14:00 까지</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">기준금리</td><td bgcolor="#ffffff">{{ bond_data[0].price_base | price_base }}<br>* {{ auction_data.auc_date | date }} 종가(소수점 셋째자리)</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">기준금리</td><td bgcolor="#ffffff">{{ bond_data[0].price_base | price_base }}<br>* {{ auction_data.auc_date | date }} 종가(소수점 셋째자리)</td></tr>
+
+                    <tr>
+                        <td colspan="2" bgcolor="#e9dfff">입찰일시</td>
+                        <td bgcolor="#ffffff">
+                            <font color="#990000">
+                                <b>{{ bond_data[0].issue_date[:4] }}년 
+                                   {{ bond_data[0].issue_date[4:6] }}월 
+                                   {{ '%02d' | format((bond_data[0].issue_date[6:] | int) - 1) }}일 
+                                   09시 30분 ~ 10시</b>
+                            </font>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">최소입찰단위</td><td bgcolor="#ffffff"><font color="#990000"><b>{{ bond_data[0].min_price }}억</b></font></td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">사채의 신용등급</td><td bgcolor="#ffffff">{{ bond_data[0].creditgrdhgp or 'N/A' }}</td></tr>
+                    <tr><td colspan="2" bgcolor="#e9dfff">주간사회사</td><td bgcolor="#ffffff">{{ bond_data[0].underwriter_comp }}</td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size:12px; font-weight: bold; color:#6f0101; padding: 8px 10px 2px 15px;">2. 문의처</td>
+        </tr>
+        <tr>
+            <td>
+                <table width="380" align="center" cellspacing="1" cellpadding="4" border="0" bgcolor="#d4d4d4" style="font-size:12px">
+                    <tr><td width="66" bgcolor="#e9dfff">발행관련</td><td bgcolor="#ffffff">{{ issuer_data.reference_person }}</td></tr>
+                    <tr><td bgcolor="#e9dfff">시스템관련</td><td bgcolor="#ffffff">인포맥스 경매플랫폼 (02-398-5280)</td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size:12px; font-weight: bold; color:#6f0101; padding: 8px 10px 2px 15px;">3. 유의사항</td>
+        </tr>
+        <tr>
+            <td>
+                <table width="380" align="center" cellspacing="1" cellpadding="4" bgcolor="#d4d4d4" style="font-size:12px">
+                    <tr><td bgcolor="#ffffff">{{ auction_data.caution_msg }}</td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

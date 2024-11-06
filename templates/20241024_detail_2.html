@@ -1,0 +1,298 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<style>
+		
+		img,fieldset { border:0 none; }
+		a { text-decoration:none; }
+		a:link, a:hover, a:active { text-decoration:none; cursor:pointer;}
+		
+		textarea
+		{
+			border:1px solid #999999;
+			width:99%;
+		}
+		body {
+			font-family:Verdana, 굴림; 
+			font-size: 12px;
+			line-height:150%;
+			margin:0;
+			padding:0; 
+			background-repeat: no-repeat;
+			background-color: #EBEBEB;
+		}
+		input[type="text"]
+		{
+			color:#b60000; font-size:12px; 
+			font-family:Verdana;
+			background-repeat:expand; height:16;
+			background-position: 5 5 5 5;
+		}
+		input[type="number"]:focus, input[type="decimal"]:focus, input[type="text"]:focus
+		{
+			outline:4px glow #FF3300 1px;
+		}
+		input:empty { color:#5E5E5E; } 
+		input.custom td.today { background-color:yellow; }
+			input.custom td.today:current { background-color:orange; }
+			input.custom span.today-legend { background-color:yellow; }
+			input.custom span.today-caption { content:"Сегодня"; }
+			
+			button#to-set-time 
+			{
+				click!: self.$1p(.group).$1(input#time-to-set).now();
+			}
+			button#to-clear-time 
+			{
+				click!: self.$1p(.group).$1(input#time-to-set):value = "";
+			}
+			
+		
+		.custom-button {
+			cursor:pointer;
+			background-image: url(../images/button-blue.png);
+			background-repeat: expand stretch-top stretch-left stretch-right stretch-bottom stretch-middle; /* h-smile specific */
+			background-position: 2px 2px 2px 2px;		
+			behavior:button;
+			transition:blend;
+			color: #ffffff;
+			width: 100px;
+			height: 30px;
+			text-align:center;
+			margin:2px;
+			padding:2px;
+		}
+		.custom-button:hover 
+		{
+			background-image: url(../images/button-back-hover.png);
+			color: #000;
+		}
+		.custom-button:active 
+		{
+			background-image: url(../images/button-back-active.png);
+			//padding:3px 1px 1px 3px;color: #ffffff;
+		} 
+		.custom-button2 {
+			cursor:pointer;
+			background-image: url(../images/button-back2.png);
+			background-repeat: expand stretch-top stretch-left stretch-right stretch-bottom stretch-middle; /* h-smile specific */
+			background-position: 2px 2px 2px 2px;		
+			behavior:button;
+			transition:blend;
+			color: #ffffff;
+		width: 100px;
+			height: 30px;
+			text-align:center;
+			margin:2px;
+			padding:2px;
+		}
+		.custom-button2:hover 
+		{
+			background-image: url(../images/button-back-hover.png);
+			color: #000;
+		}
+		.custom-button2:active 
+		{
+			background-image: url(../images/button-back-active.png);
+			//padding:3px 1px 1px 3px;	color: #ffffff;
+		}  
+		.td00 {border-bottom:1px solid #C4C4C4;color:#ffffff; 
+			background-color:#f00000 #f00000 #f00000 #f00000; font-size: 13px; font-weight : bold ;  text-align:center;}
+		.td000 {border-bottom:1px solid #C4C4C4;color:#ffffff; 
+			background-color:#f00000 #f00000 #f00000 #f00000; font-size: 11px; font-weight : bold ;  text-align:center;}
+		.td11 {border-bottom:1px solid #C4C4C4;color:#ffffff; 
+			background-color:#34766c #34766c #34766c #34766c; font-size: 13px; font-weight : bold ;  text-align:center;}
+		.td111 {border-bottom:1px solid #C4C4C4;color:#ffffff; 
+			background-color:#34766c #34766c #34766c #34766c; font-size: 11px; font-weight : bold ;  text-align:center;}
+		.td01 {border-bottom:1px solid #C4C4C4;color:#ffffff; 
+			background-color:#3f5fa2; font-size: 12px; font-weight : bold ;  text-align:center;}
+		.td01_02 {border-bottom:1px solid #C4C4C4;color:#ffffff; 
+			background-color:#5c43a5; font-size: 12px; font-weight : bold ;  text-align:center;}
+		.td02{font-size: 12px;   padding:4 4 4 4 ; text-align:right;
+			border-bottom:1px solid #C4C4C4;
+		border-right:1px solid #C4C4C4 ; 
+			background-color:#e8e8e8;
+			color:#000000; 
+		}
+		
+		.td03 {font-size: 12px; padding:0 4 0 0 ;  text-align:right;font-weight : bold ;
+			border-bottom:1px solid #C4C4C4;
+		border-right:1px solid #C4C4C4 ;
+		border-left:1px solid #C4C4C4 ;
+			background-color:#e2daf5;
+			color:#5b4589; 
+			height: 30px;
+		}
+		.td04{
+			border-bottom:1px solid #C4C4C4;
+			border-right:1px solid #C4C4C4 ;  
+			background-color:#fafafa; color:#000000;  padding:2 2 2 5 ;font-size: 12px;  
+		}
+		.td05{
+			font-size: 12px; padding:0 5px 0 0; text-align:right;
+			font-weight : bold ;
+			width: 100px;
+			border-bottom:1px solid #C4C4C4;
+			border-right:1px solid #C4C4C4 ;
+			border-left:1px solid #C4C4C4; 
+			background-color:#DAE2F5;
+			color:#455789; 
+			height: 40px;
+		}
+		table{
+		}
+		.bgbox{
+			text-align:center; padding:0px 5px 0px 5px;  font-family: Verdana ;  font-size: 15px; color:#FF0000;  font-weight : bold ;	
+			/*  background-image: url(../images/bg_box.png);
+			background-repeat: expand stretch-top stretch-left stretch-right stretch-bottom stretch-middle; */ /* h-smile specific */
+			background-position: 2px 2px 2px 2px;
+		} 
+			
+		.graytext{ color:#8d4b37; font-size:12px; font-family:doum; }
+		.redtext{ color:#b60000; font-size:18px; font-weight:bold; font-family:Verdana; }
+		.redtext02{ color:#b60000; font-size:16px; font-weight:bold; font-family:Verdana; }
+		.redtext03{ color:#b60000; font-size:12px; font-weight:bold; font-family:Verdana; }
+		.bluetext03{ color:#333399; font-size:12px; font-weight:bold; font-family:Verdana; }
+			
+		</style>
+	</head>
+	<body>
+		<table width="1024" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>
+					<table width="650" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="23" colspan="4" class="td01" name="round">
+							발행정보
+							</td>
+						</tr>
+						<tr>
+							<td class="td05">발행사</td>
+							<td class="td04" width="220">{{ issuer_data.name }}</td>
+							<td class="td05">예상발행액</td>
+							<td class="td04" width="140">{{ bond_data[0].issue_amt }}억내외</td>
+						</tr>
+						<tr>
+							<td class="td05">종목명(회차)</td>
+							<td class="td04">{{ bond_data[0].bond_nm }}</td>
+							<td class="td05">이자유형</td>
+							<td class="td04">{{ bond_data[0].inttypestring }}</td>
+						</tr>
+						<tr>
+							<td class="td05">발행일</td>
+							<td class="td04">{{ bond_data[0].issue_date|date }}</td>
+							<td class="td05">만기일</td>
+							<td class="td04">{{ bond_data[0].exp_date|date }}</td>
+						</tr>
+						<tr>
+							<td class="td05">만기</td>
+							<td class="td04">{{ bond_data[0].exp_original|exp_original }}</td>
+							<td class="td05">상환방법</td>
+							<td class="td04">{{ bond_data[0].redmmthd|redmmthd }}</td>
+						</tr>
+						<tr>
+							<td class="td05">보증유형</td>
+							<td class="td04">{{ bond_data[0].gurtgb|gurtgb }}</td>
+							<td class="td05">채권종류</td>
+							<td class="td04">{{ bond_data[0].bond_type|bond_type }}</td>
+						</tr>
+						<tr>
+							<td class="td05">발행유형</td>
+							<td class="td04">{{ bond_data[0].issuegb|issuegb }}</td>
+							<td class="td05">주간사</td>
+							<td class="td04">{{ bond_data[0].underwriter_comp }}</td>
+						</tr>
+						<tr>
+							<td class="td05">첨부파일</td>
+							<td class="td04" colspan="3">
+								{% if auction_data.attachlink1 %}
+									<a href="{{ auction_data.attachlink1 }}" target="_blank">첨부파일1</a>
+								{% endif %}
+								{% if auction_data.attachlink2 %}
+									<a href="{{ auction_data.attachlink2 }}" target="_blank">첨부파일2</a>
+								{% endif %}
+							</td>
+						</tr>
+					</table>
+					<table width="650x" height="60" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="20" colspan="10" class="td01" name="round">
+							신용등급
+							</td>
+						</tr>
+						<tr>
+							<td class="td05" style="text-align:center;">한기평</td>
+							<td class="td04" style="text-align:center;">
+								{% if 'HGP' in bond_data[0].creditgrdhgp %}
+									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% else %}
+									없음
+								{% endif %}
+							</td>
+							<td class="td05" style="text-align:center;">한신평</td>
+							<td class="td04" style="text-align:center;">
+								{% if bond_data[0].creditgrdhsp == 1 %}
+									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% else %}
+									없음
+								{% endif %}
+							</td>
+							<td class="td05" style="text-align:center;">NICE</td>
+							<td class="td04" style="text-align:center;">
+								{% if 'NICE' in bond_data[0].creditgrdhgp %}
+									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% else %}
+									없음
+								{% endif %}
+							</td>
+							<td class="td05" style="text-align:center;">서신평</td>
+							<td class="td04" style="text-align:center;" colspan="3">
+								{% if bond_data[0].creditgrdssp %}
+									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% else %}
+									없음
+								{% endif %}
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table border="0" cellspacing="0" cellpadding="0" height="100%">
+						<tr>
+							<td height="23" colspan="4" class="td01_02" name="round">
+							경매관련
+							</td>
+						</tr>
+						<tr>
+							<td class="td03" name="round">경매방식</td>
+							<td class="td04" name="경매방식" colspan="3">비공개 동시경매방식(Dutch)</td>
+						</tr>
+						<tr>
+							<td class="td03" name="round">입찰시간</td>
+							<td class="td04" colspan="3" name="예약입찰시간">
+								{{ auction_data.auc_date|bid_time(auction_data.auc_time) }}
+							</td>
+						</tr>
+						<tr>
+							<td class="td03" name="round">운영시간분</td>
+							<td width="70" class="td04" name="운영시간분">30분</td>
+							<td class="td03" name="round">최소입찰단위</td>
+							<td width="50" class="td04" name="round">{{ bond_data[0].amt_unit }}억</td>
+						</tr>
+						<tr>
+							<td class="td03" name="round">입찰수익률/수량 제한</td>
+							<td class="td04" name="round" colspan="3">
+								<span class="redtext03">제한없이 입찰가능</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<img src="http://imboard.einfomax.co.kr/auction/notice/03938/closeauctionprocess.jpg"/>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
