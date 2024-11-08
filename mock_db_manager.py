@@ -16,7 +16,7 @@ def get_auction_data(auction_no):
         'pre_date': '20241024',  # char(8) - YYYYMMDD
         'pre_time': '090000',  # char(6) - HHMMSS
         'notice_date': '20241010',  # char(8) - YYYYMMDD
-        'auc_type': 0,  # int(11)
+        'auc_type': 10,  # int(11)
         'auc_present': 1,  # int(11)
         'underwriter_rule': 0,  # int(11)
         'underwriter_price': None,  # int(11) or None

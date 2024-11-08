@@ -170,46 +170,65 @@
 							<td class="td05">발행사</td>
 							<td class="td04" width="220">{{ issuer_data.name }}</td>
 							<td class="td05">예상발행액</td>
-							<td class="td04" width="140">{{ bond_data[0].issue_amt }}억내외</td>
+							<td class="td04" width="140">{{ bond_data[1].issue_amt }}억내외</td>
 						</tr>
 						<tr>
 							<td class="td05">종목명(회차)</td>
-							<td class="td04">{{ bond_data[0].bond_nm }}</td>
+							<td class="td04">{{ bond_data[1].bond_nm }}</td>
 							<td class="td05">이자유형</td>
-							<td class="td04">{{ bond_data[0].inttypestring }}</td>
+							<td class="td04">{{ bond_data[1].inttypestring }}</td>
 						</tr>
 						<tr>
-							<td class="td05">발행일</td>
-							<td class="td04">{{ bond_data[0].issue_date|date }}</td>
-							<td class="td05">만기일</td>
-							<td class="td04">{{ bond_data[0].exp_date|date }}</td>
+							<td class="td05">발행구분</td>
+							<td class="td04">{{ bond_data[1].issuegb|issuegb }}</td>
+							<td class="td05">발행만기</td>
+							<td class="td04">{{ bond_data[1].exp_original|exp_original }}</td>
 						</tr>
 						<tr>
-							<td class="td05">만기</td>
-							<td class="td04">{{ bond_data[0].exp_original|exp_original }}</td>
+							<td class="td05">채권유형</td>
+							<td class="td04">{{ bond_data[1].bond_type|bond_type }}</td>
 							<td class="td05">상환방법</td>
-							<td class="td04">{{ bond_data[0].redmmthd|redmmthd }}</td>
+							<td class="td04">{{ bond_data[1].redmmthd|redmmthd }}</td>
 						</tr>
 						<tr>
-							<td class="td05">보증유형</td>
-							<td class="td04">{{ bond_data[0].gurtgb|gurtgb }}</td>
-							<td class="td05">채권종류</td>
-							<td class="td04">{{ bond_data[0].bond_type|bond_type }}</td>
+							<td class="td05">보증/담보</td>
+							<td class="td04">{{ bond_data[1].gurtgb|gurtgb }}</td>
+							<td class="td05">발행일</td>
+							<td class="td04">{{ bond_data[1].issue_date|date("%Y-%m-%d") }}</td>
 						</tr>
 						<tr>
-							<td class="td05">발행유형</td>
-							<td class="td04">{{ bond_data[0].issuegb|issuegb }}</td>
-							<td class="td05">주간사</td>
-							<td class="td04">{{ bond_data[0].underwriter_comp }}</td>
+							<td class="td05">주간사회사</td>
+							<td class="td04">{{ bond_data[1].underwriter_comp }}</td>
+							<td class="td05">만기일</td>
+							<td class="td04">{{ bond_data[1].exp_date|date("%Y-%m-%d") }}</td>
 						</tr>
 						<tr>
-							<td class="td05">첨부파일</td>
+							<td class="td05">전달사항</td>
 							<td class="td04" colspan="3">
-								{% if auction_data.attachlink1 %}
-									<a href="{{ auction_data.attachlink1 }}" target="_blank">첨부파일1</a>
+								<font color="#000000">
+								{% if auction_data.notice_msg %}
+									{{ auction_data.notice_msg|safe|replace('\n', '<br>') }}
+								{% else %}
+									1. 낙찰 금액은 지정된 주간사에서 낙찰금리로 인수.<br>
+									2. 주간사로부터 낙찰자에게 매출되는 금리는 낙찰금리와 동일.<br>
+									3. 입찰 참가 신청시 옥션 규칙 및 약관 필독 요망.<br>
+									4. 기준금리: {{ bond_data[1].reference_name }}<br>
+									5. 인수수수료: 2bp
 								{% endif %}
+								</font>
+							</td>
+						</tr>
+						<tr>
+							<td class="td05">발행공고</td>
+							<td class="td04">
+								{% if auction_data.attachlink1 %}
+									<a href="{{ auction_data.attachlink1 }}" target="_blank">발행공고 보기</a>
+								{% endif %}
+							</td>
+							<td class="td05">IR/기타 첨부</td>
+							<td class="td04">
 								{% if auction_data.attachlink2 %}
-									<a href="{{ auction_data.attachlink2 }}" target="_blank">첨부파일2</a>
+									<a href="{{ auction_data.attachlink2 }}" target="_blank">첨부파일 보기</a>
 								{% endif %}
 							</td>
 						</tr>
@@ -223,32 +242,32 @@
 						<tr>
 							<td class="td05" style="text-align:center;">한기평</td>
 							<td class="td04" style="text-align:center;">
-								{% if 'HGP' in bond_data[0].creditgrdhgp %}
-									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% if 'HGP' in bond_data[1].creditgrdhgp %}
+									{{ bond_data[1].creditgrdhgp.split('(')[0] }}
 								{% else %}
 									없음
 								{% endif %}
 							</td>
 							<td class="td05" style="text-align:center;">한신평</td>
 							<td class="td04" style="text-align:center;">
-								{% if bond_data[0].creditgrdhsp == 1 %}
-									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% if bond_data[1].creditgrdhsp == 1 %}
+									{{ bond_data[1].creditgrdhgp.split('(')[0] }}
 								{% else %}
 									없음
 								{% endif %}
 							</td>
 							<td class="td05" style="text-align:center;">NICE</td>
 							<td class="td04" style="text-align:center;">
-								{% if 'NICE' in bond_data[0].creditgrdhgp %}
-									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% if 'NICE' in bond_data[1].creditgrdhgp %}
+									{{ bond_data[1].creditgrdhgp.split('(')[0] }}
 								{% else %}
 									없음
 								{% endif %}
 							</td>
 							<td class="td05" style="text-align:center;">서신평</td>
 							<td class="td04" style="text-align:center;" colspan="3">
-								{% if bond_data[0].creditgrdssp %}
-									{{ bond_data[0].creditgrdhgp.split('(')[0] }}
+								{% if bond_data[1].creditgrdssp %}
+									{{ bond_data[1].creditgrdhgp.split('(')[0] }}
 								{% else %}
 									없음
 								{% endif %}
@@ -265,7 +284,7 @@
 						</tr>
 						<tr>
 							<td class="td03" name="round">경매방식</td>
-							<td class="td04" name="경매방식" colspan="3">비공개 동시경매방식(Dutch)</td>
+							<td class="td04" name="경매방식" colspan="3">{{ auction_data.auc_type|auc_type }}</td>
 						</tr>
 						<tr>
 							<td class="td03" name="round">입찰시간</td>
@@ -277,7 +296,7 @@
 							<td class="td03" name="round">운영시간분</td>
 							<td width="70" class="td04" name="운영시간분">30분</td>
 							<td class="td03" name="round">최소입찰단위</td>
-							<td width="50" class="td04" name="round">{{ bond_data[0].amt_unit }}억</td>
+							<td width="50" class="td04" name="round">{{ bond_data[1].amt_unit }}억</td>
 						</tr>
 						<tr>
 							<td class="td03" name="round">입찰수익률/수량 제한</td>

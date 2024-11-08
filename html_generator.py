@@ -73,6 +73,23 @@ def format_bid_time(auc_date, auc_time):
     start_time = start_time.strftime("%H시 %M분")
     return f"{date_part} {start_time} ~ {end_time}"
 
+def format_auc_type(value):
+    auc_types = {
+        0: "비공개 경매 방식",
+        1: "다이내믹MBS 경매 방식",
+        2: "환매 방식",
+        3: "환매연계매출 방식",
+        4: "매출 수량 확정 방식",
+        5: "매출 수량 미확정 방식",
+        6: "비공개비공개 방식",
+        7: "비공개비공개MBS 방식",
+        8: "차가옥션 방식",
+        9: "NEW MBS 경매 방식",
+        10: "비공개 동시경매 방식",
+        11: "비공개MBS 경매 방식"
+    }
+    return auc_types.get(value, "알 수 없음")
+
 def generate_html(auction_no):
     auction_data, bond_data, issuer_data = get_auction_data(auction_no)
     
@@ -91,6 +108,7 @@ def generate_html(auction_no):
     env.filters['redmmthd'] = format_redmmthd
     env.filters['price_base'] = map_price_base
     env.filters['bid_time'] = format_bid_time
+    env.filters['auc_type'] = format_auc_type
 
     templates = [
         ('bond_template_multiple_items.html', f'auction_{auction_no}.html'),
